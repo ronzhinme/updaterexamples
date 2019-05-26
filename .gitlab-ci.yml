@@ -1,0 +1,21 @@
+
+stages:
+  - test
+  - build
+  - deploy
+
+linux_build:
+    stage: build
+    image: ubuntu:14.04
+    before_script:
+      - apt-get update
+      - apt-get install -y git cmake build-essential autoconf libtool pkg-config libssl-dev
+      - git submodule update --init --recursive
+
+    script: # Modify the commands below to build your repository.
+      # updateExample
+      - mkdir out
+      - cd out
+      - cmake ../
+      - cd ..
+      - cmake --build out --config Release
