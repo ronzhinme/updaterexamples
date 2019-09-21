@@ -1,0 +1,3 @@
+[submodule "appupdaterlib"]
+	path = appupdaterlib
+	url = https://gitlab.com/ronme/appupdaterlib.git
