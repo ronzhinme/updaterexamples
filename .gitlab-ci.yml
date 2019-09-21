@@ -12,7 +12,25 @@ linux_build:
       - apt-get install -y git cmake build-essential autoconf libtool pkg-config libssl-dev
       - git submodule update --init --recursive
 
-    script: # Modify the commands below to build your repository.
+    script:
+      # curl
+      - cd appupdaterlib/3d-party/curl
+      - ./buildconf
+      - ./configure
+      - make
+      - make install
+      - cd ../../..
+      
+      # appUpdater
+      - cd appupdaterlib
+      - mkdir out
+      - cd out
+      - cmake ../
+      - cd ..
+      - cmake --build out --config Release
+      - cd ..
+
+
       # updateExample
       - mkdir out
       - cd out

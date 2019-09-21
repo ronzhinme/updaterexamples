@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <thread>
 
 #include <updaterInterface.h>
 
@@ -105,7 +106,7 @@ int main(int argc, char const *argv[])
 
     while (!stopExecution)
     {
-        _sleep(1);
+        std::this_thread::yield();
     }
 
     std::cout << __FUNCTION__ << " :: END";

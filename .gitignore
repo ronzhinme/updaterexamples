@@ -1,4 +1,5 @@
 /build/*
+/out/*
 MAIN.ipch
 mmap_*
 /lib/*
