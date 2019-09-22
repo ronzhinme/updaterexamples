@@ -23,17 +23,17 @@ linux_build:
       
       # appUpdater
       - cd appupdaterlib
-      - mkdir out
-      - cd out
+      - mkdir build
+      - cd build
       - cmake ../
       - cd ..
-      - cmake --build out --config Release
+      - cmake --build build --config Release
       - cd ..
 
 
       # updateExample
-      - mkdir out
-      - cd out
+      - mkdir build
+      - cd build
       - cmake ../
       - cd ..
-      - cmake --build out --config Release
+      - cmake --build build --config Release
