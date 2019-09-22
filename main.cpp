@@ -86,7 +86,7 @@ int main(int argc, char const *argv[])
         onResultEvent(updater, o, r, i);
     });
 
-    std::string infoUrl("file:///E:/proj/appUpdater/unittests/appUpdateSample.xml");
+    std::string infoUrl("https://gitlab.com/ronme/appupdaterlib/raw/master/unittests/appUpdateSample.xml");
     std::cout << "Set infoUrl: " << infoUrl << std::endl;
     setInfoUrl(updater, infoUrl.c_str(), infoUrl.length());
 
