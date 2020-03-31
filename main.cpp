@@ -6,6 +6,14 @@
 
 bool stopExecution = false;
 
+#if _MSC_FULL_VER > 0
+    const std::string infoUrl();
+#elif defined(__APPLE__)
+    const std::string infoUrl();
+#elif defined(__linux__)
+    const std::string infoUrl();
+#endif
+
 void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraInfo &i)
 {
     printf("%s [%d] [%d]\n", __FUNCTION__, o, r);

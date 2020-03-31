@@ -4,36 +4,87 @@ stages:
   - build
   - deploy
 
+variables:
+  APPUPDATERLIB_ARCHIVE: appupdaterlib.zip
+
 linux_build:
     stage: build
     image: ubuntu:14.04
     before_script:
       - apt-get update
-      - apt-get install -y git cmake build-essential autoconf libtool pkg-config libssl-dev
+      - apt-get install -y git unzip cmake build-essential autoconf libtool pkg-config libssl-dev wget chrpath
       - git submodule update --init --recursive
-
+      - wget -L -O $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=1s5VK7pSx0eev5NBBVocBCaQNObJIMCWF"
+      - unzip $APPUPDATERLIB_ARCHIVE
+      - mv ./appupdater ./3d-party
     script:
-      # curl
-      - cd appupdaterlib/3d-party/curl
-      - ./buildconf
-      - ./configure
-      - make
-      - make install
-      - cd ../../..
-      
-      # appUpdater
-      - cd appupdaterlib
-      - mkdir build
-      - cd build
-      - cmake ../
-      - cd ..
-      - cmake --build build --config Release
-      - cd ..
-
-
       # updateExample
       - mkdir build
       - cd build
       - cmake ../
       - cd ..
       - cmake --build build --config Release
+
+      #prepare deploy
+      - mkdir ./build/lib
+      - cp ./3d-party/appupdater/lib/libappUpdaterShared.so ./build/lib
+      - chrpath -r ./lib ./build/updateCUI
+    artifacts:
+      name: appupdater_example_linux
+      paths:
+          - ./build/updateCUI
+          - ./build/lib/libappUpdaterShared.so
+      expire_in: 1 day
+    tags:
+      - linux
+
+win_build:
+    stage: build
+    before_script:
+      - git submodule update --init --recursive
+      - curl -o $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=1dqsTfIkBRJumDQ53dsQxQQBrRFG9hNWv"
+      - unzip $APPUPDATERLIB_ARCHIVE
+      - mv ./appupdater ./3d-party
+    script:
+      # updateExample
+      - mkdir build
+      - cd build
+      - cmake ../
+      - cd ..
+      - cmake --build build --config Release
+
+      #prepare deploy
+      - cp ./3d-party/appupdater/lib/* ./build/Release
+    artifacts:
+      name: appupdater_example_win
+      paths:
+          - ./build/Release/*
+      expire_in: 1 day
+    tags:
+      - win
+
+macos_build:
+    stage: build
+    before_script:
+      - git submodule update --init --recursive
+      - curl -L -o $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=18D2khQuMU396OmVmUWhdwNP3YVCa0H2h"
+      - unzip $APPUPDATERLIB_ARCHIVE
+      - mv ./appupdater ./3d-party
+    script:
+      # updateExample
+      - mkdir build
+      - cd build
+      - cmake ../
+      - cd ..
+      - cmake --build build --config Release
+
+      #prepare deploy
+      - cp -R ./3d-party/appupdater/lib/ ./build/Release
+    artifacts:
+      name: appupdater_example_mac
+      paths:
+          - ./build/updateCUI
+          - ./build/Release/*
+      expire_in: 1 day
+    tags:
+      - macos

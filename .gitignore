@@ -4,3 +4,4 @@ MAIN.ipch
 mmap_*
 /lib/*
 /.vscode/*
+3d-party/*
