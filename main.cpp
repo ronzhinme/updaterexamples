@@ -6,12 +6,13 @@
 
 bool stopExecution = false;
 
+const std::string baseUrl("https://gitlab.com/ronme/updateexample/-/raw/master/");
 #if _MSC_FULL_VER > 0
-    const std::string infoUrl();
+    const std::string infoUrl(baseUrl+"appUpdateSample_Win.xml");
 #elif defined(__APPLE__)
-    const std::string infoUrl();
+    const std::string infoUrl(baseUrl+"appUpdateSample_MacOS.xml");
 #elif defined(__linux__)
-    const std::string infoUrl();
+    const std::string infoUrl(baseUrl+"appUpdateSample_Linux.xml");
 #endif
 
 void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraInfo &i)
@@ -94,7 +95,6 @@ int main(int argc, char const *argv[])
         onResultEvent(updater, o, r, i);
     });
 
-    std::string infoUrl("https://gitlab.com/ronme/appupdaterlib/raw/master/unittests/appUpdateSample.xml");
     std::cout << "Set infoUrl: " << infoUrl << std::endl;
     setInfoUrl(updater, infoUrl.c_str(), infoUrl.length());
 

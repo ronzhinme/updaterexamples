@@ -1,0 +1,20 @@
+<!-- VSCode Win-->
+<?xml version="1.0" encoding="utf-8"?>
+<updateInfo>
+<channel type="stable">
+<version id="0.0.0.1" unixtime="0" size="1023" active="true" critical="false" url="" notes="First version" signature=""></version>
+<!--16 September 2004-->
+<version id="0.0.1.1" unixtime="1095292800" size="1023" active="false" critical="true" url="" notes="" signature=""></version>
+<version id="0.0.1.1" unixtime="1095292801" size="1023" active="true" critical="true" url="" notes="Active critical version \nInstall It \nAny String" signature=""></version>
+<version id="0.1.1.1" unixtime="1095292802" size="1023" active="true" critical="false" url="" notes="" signature=""></version>
+</channel>
+<channel type="alpha">
+<version id="0.0.0.1" unixtime="0" size="1023" active="true" critical="false" url="" notes="First version" signature=""></version>
+<!--16 September 2004-->
+<version id="0.0.1.1" unixtime="1095292800" size="1023" active="false" critical="true" url="" notes="" signature=""></version>
+<version id="0.0.1.1" unixtime="1095292801" size="1023" active="true" critical="false" url="" notes="Active critical version \nInstall It \nAny String" signature=""></version>
+<version id="0.1.1.1" unixtime="1095292802" size="48824606" active="true" critical="false" url="https://github.com/qTox/qTox/releases/download/v1.16.3/qTox.dmg" notes="" signature="93e8ebc004bd9fae8142b71635fd4c6a8cf45b08e35f3d74d77e19c22f90634a7a427bc91b37908456a8d7ef700efff91f59e45258e849334b4130f26849cde3" updateargs=""></version>
+</channel>
+<channel type="beta"></channel>
+<channel type="test"></channel>
+</updateInfo>
