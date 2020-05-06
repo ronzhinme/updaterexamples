@@ -4,8 +4,6 @@
 
 #include <updaterInterface.h>
 
-bool stopExecution = false;
-
 const std::string baseUrl("https://gitlab.com/ronme/updateexample/-/raw/master/");
 #if _MSC_FULL_VER > 0
     const std::string infoUrl(baseUrl+"appUpdateSample_Win.xml");
@@ -67,11 +65,10 @@ void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraIn
         runInstaller(updater);
     }
 
-    if(o== TYPE_RUN_INSTALLER && r == RESULT_SUCCESS)
-        stopExecution = true;
-        
-    if (r == RESULT_FAILED || r == RESULT_CANCELED)
-        stopExecution = true;
+    if((o== TYPE_RUN_INSTALLER && r == RESULT_SUCCESS) || (r == RESULT_FAILED || r == RESULT_CANCELED))
+    {
+        stopOperation(updater);
+    }
 }
 
 int main(int argc, char const *argv[])
@@ -112,7 +109,7 @@ int main(int argc, char const *argv[])
     std::cout << "Downloading Version Info ..." << std::endl;
     downloadInfo(updater);
 
-    while (!stopExecution)
+    while (getCurrentState(updater) != STATE_READY)
     {
         std::this_thread::yield();
     }
