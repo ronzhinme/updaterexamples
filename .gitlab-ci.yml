@@ -14,7 +14,7 @@ linux_build:
       - apt-get update
       - apt-get install -y git unzip cmake build-essential autoconf libtool pkg-config libssl-dev wget chrpath
       - git submodule update --init --recursive
-      - wget -L -O $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=1s5VK7pSx0eev5NBBVocBCaQNObJIMCWF"
+      - wget -L -O $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=1gcY--ElfcOB59vW2OfzyFnA8miRxEk-y"
       - unzip $APPUPDATERLIB_ARCHIVE
       - mv ./appupdater ./3d-party
     script:
@@ -42,7 +42,7 @@ win_build:
     stage: build
     before_script:
       - git submodule update --init --recursive
-      - curl -o $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=1dqsTfIkBRJumDQ53dsQxQQBrRFG9hNWv"
+      - curl -o $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=1D-DLRhfPCJNHJFZFsa44_BYyXaVPmcma"
       - unzip $APPUPDATERLIB_ARCHIVE
       - mv ./appupdater ./3d-party
     script:
@@ -67,7 +67,7 @@ macos_build:
     stage: build
     before_script:
       - git submodule update --init --recursive
-      - curl -L -o $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=18D2khQuMU396OmVmUWhdwNP3YVCa0H2h"
+      - curl -L -o $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=190kiC2cQVWM3K8nij89QtXadMnoPSydr"
       - unzip $APPUPDATERLIB_ARCHIVE
       - mv ./appupdater ./3d-party
     script:
