@@ -9,6 +9,8 @@ link_directories("${PROJECT_SOURCE_DIR}/3d-party/appupdater/lib")
 
 add_executable("updateCUI" main.cpp)
 add_executable("updateCUIAllinOne" allInOne.cpp)
+add_executable("updateWithPauses" pause_resume.cpp)
 
 target_link_libraries("updateCUI" "appUpdaterShared")
 target_link_libraries("updateCUIAllinOne" "appUpdaterShared")
+target_link_libraries("updateWithPauses" "appUpdaterShared")

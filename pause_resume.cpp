@@ -29,6 +29,17 @@ void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraIn
     }
     case TYPE_DOWNLOAD_UPDATE:
     {
+        if (r == RESULT_INPROGRESS)
+        {
+            if (i.infoLength == sizeof(DownloadBytesInfo))
+            {
+                DownloadBytesInfo progressInfo;
+                memcpy(&progressInfo, i.info, i.infoLength);
+                std::cout << "Downloading update progress: "
+                          << progressInfo.current << " / " << progressInfo.total << std::endl;
+            }
+        }
+
         std::cout << "TYPE_DOWNLOAD_UPDATE : " << r << std::endl;
         break;
     }
@@ -48,6 +59,16 @@ void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraIn
     {
         std::cout << (r == RESULT_SUCCESS ? "SUCCESS" : "RESULT_FAILED || RESULT_CANCELED") << std::endl;
         stopOperation(updater);
+    }
+
+    if (getCurrentState(updater) == STATE_DOWNLOADING)
+    {
+        std::cout << "PAUSE..." << std::endl;
+        pauseDownloading(updater);
+        std::cout << "SLEEP FOR 3000 ms." << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+        std::cout << "RESUME..." << std::endl;
+        resumeDownloading(updater);
     }
 }
 
