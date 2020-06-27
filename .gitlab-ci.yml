@@ -1,4 +1,3 @@
-
 stages:
   - test
   - build
@@ -6,10 +5,10 @@ stages:
 
 variables:
   APPUPDATERLIB_ARCHIVE: appupdaterlib.zip
-  LINUX_LIB: https://drive.google.com/uc?export=download&id=1_H3yLSQMwvnzSDKMpO7w_3Usx5aFuJ3a
-  WIN32_LIB: https://drive.google.com/uc?export=download&id=11eyF9qEIPF8P_IV4CpRZGAKkBGsaJOt5
-  WIN64_LIB: https://drive.google.com/uc?export=download&id=1Ta0mNNNqaqmXfFeeyAekbTtyjZaXziSc
-  MACOS_LIB: https://drive.google.com/uc?export=download&id=1KlBsxxjb6ZrE8Bc4gJkZ61eeVFKrWnvO
+  LINUX_LIB: https://drive.google.com/uc?export=download&id=1ui0Fx4n4BX7WTzFqqlXfwCRQaKiiNeTa
+  WIN32_LIB: https://drive.google.com/uc?export=download&id=1QBgu4lkv4GS3JBQZFmdHCXRsQ7OlsR0K
+  WIN64_LIB: https://drive.google.com/uc?export=download&id=1Ptq-LsLl5R73DESoOJY6-RdofSJnv_P-
+  MACOS_LIB: https://drive.google.com/uc?export=download&id=1a8z4saaxw4rdJIJzHdimIq3bi8MvX7Ax
 
 linux_build:
     stage: build
