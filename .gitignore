@@ -5,3 +5,9 @@ mmap_*
 /lib/*
 /.vscode/*
 3d-party/*
+qml_example/*.ninja*
+qml_example/*.cbp
+qml_example/release/main_qml.cpp
+qml_example/release/moc_predefs.h
+qml_example/release/qmlcache_loader.cpp
+qml_example/debug/moc_predefs.h
