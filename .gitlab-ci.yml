@@ -6,6 +6,10 @@ stages:
 
 variables:
   APPUPDATERLIB_ARCHIVE: appupdaterlib.zip
+  LINUX_LIB: https://drive.google.com/uc?export=download&id=1_H3yLSQMwvnzSDKMpO7w_3Usx5aFuJ3a
+  WIN32_LIB: https://drive.google.com/uc?export=download&id=11eyF9qEIPF8P_IV4CpRZGAKkBGsaJOt5
+  WIN64_LIB: https://drive.google.com/uc?export=download&id=1Ta0mNNNqaqmXfFeeyAekbTtyjZaXziSc
+  MACOS_LIB: https://drive.google.com/uc?export=download&id=1KlBsxxjb6ZrE8Bc4gJkZ61eeVFKrWnvO
 
 linux_build:
     stage: build
@@ -14,7 +18,7 @@ linux_build:
       - apt-get update
       - apt-get install -y git unzip cmake build-essential autoconf libtool pkg-config libssl-dev wget chrpath
       - git submodule update --init --recursive
-      - wget -L -O $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=136r0Ntk4ko6AyVCAqtjcaFR_B5PHaI-R"
+      - 'wget -L -O $APPUPDATERLIB_ARCHIVE "$LINUX_LIB"'
       - unzip $APPUPDATERLIB_ARCHIVE
       - mv ./appupdater ./3d-party
     script:
@@ -38,36 +42,48 @@ linux_build:
     tags:
       - linux
 
-win_build:
+win32_build:
     stage: build
+    variables:
+      BUILD_TOOL: "Visual Studio 15 2017"
+      QT_BIN_DIR: C:\Qt\5.14.2\msvc2017
     before_script:
-      - git submodule update --init --recursive
-      - curl -o $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=1eUH_LtjqleK5SlG_RddbmY-qSJjPqapb"
-      - unzip $APPUPDATERLIB_ARCHIVE
-      - mv ./appupdater ./3d-party
+      - './before_script_win.ps1 "$APPUPDATERLIB_ARCHIVE" "$WIN32_LIB"'
     script:
-      # updateExample
-      - mkdir build
-      - cd build
-      - cmake ../
-      - cd ..
-      - cmake --build build --config Release
-
-      #prepare deploy
-      - cp ./3d-party/appupdater/lib/* ./build/Release
+      - './script_win.ps1 "$QT_BIN_DIR" "$BUILD_TOOL" "x86"'
     artifacts:
       name: appupdater_example_win
       paths:
-          - ./build/Release/*
+        - ./build/Release/*
+        - ./qml_example/release/*
       expire_in: 1 day
     tags:
       - win
+
+win64_build:
+    stage: build
+    variables:
+      BUILD_TOOL: "Visual Studio 15 2017 Win64"
+      QT_BIN_DIR: C:\Qt\5.14.2\msvc2017_64
+    before_script:
+      - './before_script_win.ps1 "$APPUPDATERLIB_ARCHIVE" "$WIN64_LIB"'
+    script:
+      - './script_win.ps1 "$QT_BIN_DIR" "$BUILD_TOOL" "x64"'
+    artifacts:
+      name: appupdater_example_win
+      paths:
+        - ./build/Release/*
+        - ./qml_example/release/*
+      expire_in: 1 day
+    tags:
+      - win
+
 
 macos_build:
     stage: build
     before_script:
       - git submodule update --init --recursive
-      - curl -L -o $APPUPDATERLIB_ARCHIVE "https://drive.google.com/uc?export=download&id=12OqBG2oKJCeewYou6I3rz0A6sG23dJyV"
+      - 'curl -L -o $APPUPDATERLIB_ARCHIVE "$MACOS_LIB"'
       - unzip $APPUPDATERLIB_ARCHIVE
       - mv ./appupdater ./3d-party
     script:
