@@ -53,6 +53,7 @@ Window {
             updateLog.append(info)
         }
         onSigDownloadingProgress: {
+            console.log("======== ", value)
             updateProgressBar.value = value
         }
     }

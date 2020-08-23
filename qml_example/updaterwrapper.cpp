@@ -11,17 +11,20 @@ const QString infoUrl(baseUrl + "appUpdateSample_MacOS.xml");
 const QString infoUrl(baseUrl + "appUpdateSample_Linux.xml");
 #endif
 
+float last_percentage = 0.0;
 void UpdaterWrapper::onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraInfo &i)
 {
     switch (o)
     {
     case TYPE_DOWNLOAD_INFO:
     {
+        sigStepChanged(o, r, "");
         qDebug("TYPE_DOWNLOAD_INFO : %d", r);
         break;
     }
     case TYPE_CHECK_UPDATE_VERSION:
     {
+        sigStepChanged(o, r, "");
         qDebug("TYPE_CHECK_UPDATE_VERSION : %d", r);
         break;
     }
@@ -31,7 +34,14 @@ void UpdaterWrapper::onResultEvent(UPDATER_PTR updater, OperationType o, Result 
         {
             DownloadBytesInfo progress;
             memcpy(&progress, i.info, i.infoLength);
-            Q_EMIT sigDownloadingProgress((progress.total/100) * progress.current);
+
+            auto current_percentage = (float)progress.current/(float)progress.total;
+            if(current_percentage - last_percentage >= 0.01)
+            {
+                last_percentage = current_percentage;
+                sigStepChanged(o, r, "");
+                Q_EMIT sigDownloadingProgress(last_percentage);
+            }
         }
 
         qDebug("TYPE_DOWNLOAD_UPDATE : %d", r);
@@ -39,11 +49,13 @@ void UpdaterWrapper::onResultEvent(UPDATER_PTR updater, OperationType o, Result 
     }
     case TYPE_CHECK_SIGNATURE:
     {
+        sigStepChanged(o, r, "");
         qDebug("TYPE_CHECK_SIGNATURE : %d", r);
         break;
     }
     case TYPE_RUN_INSTALLER:
     {
+        sigStepChanged(o, r, "");
         qDebug("TYPE_RUN_INSTALLER : %d", r);
         break;
     }
@@ -51,6 +63,7 @@ void UpdaterWrapper::onResultEvent(UPDATER_PTR updater, OperationType o, Result 
 
     if ((o == TYPE_RUN_INSTALLER && r == RESULT_SUCCESS) || (r == RESULT_FAILED || r == RESULT_CANCELED))
     {
+        sigStepChanged(-1, 0, "END_UPDATE");
         qDebug(r == RESULT_SUCCESS ? "SUCCESS" : "RESULT_FAILED || RESULT_CANCELED");
         stopOperation(updater);
     }
@@ -62,7 +75,6 @@ UpdaterWrapper::UpdaterWrapper(QObject *parent) : QObject(parent)
     m_updater = getUpdaterInstance();
 
     setOperationResultEvent(m_updater, [this](OperationType o, Result r, const ExtraInfo &i) {
-        sigStepChanged(o, r, "");
         this->onResultEvent(m_updater, o, r, i);
     });
 
@@ -74,7 +86,7 @@ UpdaterWrapper::UpdaterWrapper(QObject *parent) : QObject(parent)
 
 void UpdaterWrapper::update()
 {
+    last_percentage = 0.0;
     sigStepChanged(-1, 0, "BEGIN_UPDATE");
-    checkAndUpdate(m_updater);
-    sigStepChanged(-1, 0, "END_UPDATE");
+    checkAndUpdateAsync(m_updater);
 }
