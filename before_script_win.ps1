@@ -5,5 +5,5 @@ echo $APPUPDATERLIB_ARCHIVE $LIB_URL
 
 git submodule update --init --recursive
 curl -o "$APPUPDATERLIB_ARCHIVE" "$LIB_URL"
-unzip $APPUPDATERLIB_ARCHIVE
+7z x $APPUPDATERLIB_ARCHIVE
 mv ./appupdater ./3d-party
