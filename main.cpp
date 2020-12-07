@@ -4,18 +4,22 @@
 
 #include <updaterInterface.h>
 
-const std::string baseUrl("https://gitlab.com/ronme/updateexample/-/raw/master/");
+const std::string baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
 #if _MSC_FULL_VER > 0
-    const std::string infoUrl(baseUrl+"appUpdateSample_Win.xml");
+const std::string infoUrl(baseUrl + "appUpdateSample_Win.xml");
 #elif defined(__APPLE__)
-    const std::string infoUrl(baseUrl+"appUpdateSample_MacOS.xml");
+const std::string infoUrl(baseUrl + "appUpdateSample_MacOS.xml");
 #elif defined(__linux__)
-    const std::string infoUrl(baseUrl+"appUpdateSample_Linux.xml");
+const std::string infoUrl(baseUrl + "appUpdateSample_Linux.xml");
 #endif
 
-void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraInfo &i)
+void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraInfo& i)
 {
-    printf("%s [%d] [%d]\n", __FUNCTION__, o, r);
+    std::cout << __FUNCTION__ << " [" << o << "][" << r << "]" << std::endl;
+    if (i.infoLength > 0)
+    {
+        std::cout << i.info << std::endl;
+    }
 
     if (o == TYPE_DOWNLOAD_INFO && r == RESULT_SUCCESS)
     {
@@ -65,13 +69,13 @@ void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraIn
         runInstaller(updater);
     }
 
-    if((o== TYPE_RUN_INSTALLER && r == RESULT_SUCCESS) || (r == RESULT_FAILED || r == RESULT_CANCELED))
+    if ((o == TYPE_RUN_INSTALLER && r == RESULT_SUCCESS) || (r == RESULT_FAILED || r == RESULT_CANCELED))
     {
         stopOperation(updater);
     }
 }
 
-int main(int argc, char const *argv[])
+int main(int argc, char const* argv[])
 {
     if (argc > 1)
         std::cout << "Just imagine I'm the installer" << std::endl;
@@ -88,7 +92,8 @@ int main(int argc, char const *argv[])
     getCurrentVersion(updater, retVersion, 30);
     std::cout << "Get current app version: " << retVersion << std::endl;
 
-    setOperationResultEvent(updater, [updater](OperationType o, Result r, const ExtraInfo &i) {
+    setOperationResultEvent(updater, [updater](OperationType o, Result r, const ExtraInfo & i)
+    {
         onResultEvent(updater, o, r, i);
     });
 
