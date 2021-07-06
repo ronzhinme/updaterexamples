@@ -1,16 +1,16 @@
-
 $QDIR=$args[0]+"\bin"
 $QMAKE=$args[0]+"\bin\qmake.exe"
 $QTDEPLOY=$args[0]+"\bin\windeployqt.exe"
 $BUILD_TOOL=$args[1]
 $ARCH=$args[2]
+$PLATFORM=$args[3]
 
-echo $QMAKE $QTDEPLOY $BUILD_TOOL $ARCH
+echo $QMAKE $QTDEPLOY $BUILD_TOOL $ARCH $PLATFORM
 
 echo "======== updateExample building... ========"
 mkdir build
 cd build
-cmake -G "$BUILD_TOOL" ../
+cmake -G "$BUILD_TOOL" -A $PLATFORM../
 cd ..
 cmake --build build --config Release
 
