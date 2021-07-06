@@ -44,12 +44,12 @@ linux_build:
 win32_build:
     stage: build
     variables:
-      BUILD_TOOL: "Visual Studio 15 2017"
-      QT_BIN_DIR: C:\Qt\5.14.2\msvc2017
+      BUILD_TOOL: 'Visual Studio 16 2019'
+      PLATFORM: 'Win32'
     before_script:
       - './before_script_win.ps1 "$APPUPDATERLIB_ARCHIVE" "$WIN32_LIB"'
     script:
-      - './script_win.ps1 "$QT_BIN_DIR" "$BUILD_TOOL" "x86"'
+      - './script_win.ps1 "$QT_BIN_DIR" "$BUILD_TOOL" "x86" "$PLATFORM"'
     artifacts:
       name: appupdater_example_win
       paths:
@@ -62,8 +62,8 @@ win32_build:
 win64_build:
     stage: build
     variables:
-      BUILD_TOOL: "Visual Studio 15 2017 Win64"
-      QT_BIN_DIR: C:\Qt\5.14.2\msvc2017_64
+      BUILD_TOOL: 'Visual Studio 16 2019'
+      PLATFORM: 'x64'
     before_script:
       - './before_script_win.ps1 "$APPUPDATERLIB_ARCHIVE" "$WIN64_LIB"'
     script:
