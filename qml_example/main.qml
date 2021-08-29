@@ -65,6 +65,7 @@ Window {
         anchors.left: parent.left
         anchors.right: parent.right
         readOnly: true
+        selectByMouse: true
     }
 
     ProgressBar {

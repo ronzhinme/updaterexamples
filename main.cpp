@@ -4,7 +4,7 @@
 
 #include <updaterInterface.h>
 
-const std::string baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
+const std::string baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/self-update-installers/");//"https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
 #if _MSC_FULL_VER > 0
 const std::string infoUrl(baseUrl + "appUpdateSample_Win.xml");
 #elif defined(__APPLE__)
@@ -16,10 +16,6 @@ const std::string infoUrl(baseUrl + "appUpdateSample_Linux.xml");
 void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraInfo& i)
 {
     std::cout << __FUNCTION__ << " [" << o << "][" << r << "]" << std::endl;
-    if (i.infoLength > 0)
-    {
-        std::cout << i.info << std::endl;
-    }
 
     if (o == TYPE_DOWNLOAD_INFO && r == RESULT_SUCCESS)
     {
@@ -71,6 +67,10 @@ void onResultEvent(UPDATER_PTR updater, OperationType o, Result r, const ExtraIn
 
     if ((o == TYPE_RUN_INSTALLER && r == RESULT_SUCCESS) || (r == RESULT_FAILED || r == RESULT_CANCELED))
     {
+        if (i.infoLength > 0)
+        {
+            std::cout << i.info << std::endl;
+        }
         stopOperation(updater);
     }
 }
