@@ -2,7 +2,8 @@
 
 #include "updaterwrapper.h"
 
-const QString baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
+
+const QString baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/self-update-installers/");//"https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
 #if _MSC_FULL_VER > 0
 const QString infoUrl(baseUrl + "appUpdateSample_Win.xml");
 #elif defined(__APPLE__)
@@ -18,13 +19,13 @@ void UpdaterWrapper::onResultEvent(UPDATER_PTR updater, OperationType o, Result 
     {
     case TYPE_DOWNLOAD_INFO:
     {
-        sigStepChanged(o, r, "");
+        emit sigStepChanged(o, r, "");
         qDebug("TYPE_DOWNLOAD_INFO : %d", r);
         break;
     }
     case TYPE_CHECK_UPDATE_VERSION:
     {
-        sigStepChanged(o, r, "");
+        emit sigStepChanged(o, r, "");
         qDebug("TYPE_CHECK_UPDATE_VERSION : %d", r);
         break;
     }
@@ -39,7 +40,7 @@ void UpdaterWrapper::onResultEvent(UPDATER_PTR updater, OperationType o, Result 
             if(current_percentage - last_percentage >= 0.01)
             {
                 last_percentage = current_percentage;
-                sigStepChanged(o, r, "");
+                emit sigStepChanged(o, r, "");
                 Q_EMIT sigDownloadingProgress(last_percentage);
             }
         }
@@ -49,13 +50,13 @@ void UpdaterWrapper::onResultEvent(UPDATER_PTR updater, OperationType o, Result 
     }
     case TYPE_CHECK_SIGNATURE:
     {
-        sigStepChanged(o, r, "");
+        emit sigStepChanged(o, r, "");
         qDebug("TYPE_CHECK_SIGNATURE : %d", r);
         break;
     }
     case TYPE_RUN_INSTALLER:
     {
-        sigStepChanged(o, r, "");
+        emit sigStepChanged(o, r, "");
         qDebug("TYPE_RUN_INSTALLER : %d", r);
         break;
     }
@@ -63,8 +64,12 @@ void UpdaterWrapper::onResultEvent(UPDATER_PTR updater, OperationType o, Result 
 
     if ((o == TYPE_RUN_INSTALLER && r == RESULT_SUCCESS) || (r == RESULT_FAILED || r == RESULT_CANCELED))
     {
-        sigStepChanged(-1, 0, "END_UPDATE");
+        emit sigStepChanged(-1, -1, "END_UPDATE");
         qDebug(r == RESULT_SUCCESS ? "SUCCESS" : "RESULT_FAILED || RESULT_CANCELED");
+        if(r != RESULT_SUCCESS)
+        {
+            emit sigStepChanged(-1, -1, QString::fromStdString(std::string(i.info, i.infoLength)));
+        }
         stopOperation(updater);
     }
 }
@@ -87,6 +92,7 @@ UpdaterWrapper::UpdaterWrapper(QObject *parent) : QObject(parent)
 void UpdaterWrapper::update()
 {
     last_percentage = 0.0;
-    sigStepChanged(-1, 0, "BEGIN_UPDATE");
+    emit sigStepChanged(-1, 0, infoUrl);
+    emit sigStepChanged(-1, 0, "BEGIN_UPDATE");
     checkAndUpdateAsync(m_updater);
 }

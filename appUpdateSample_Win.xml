@@ -13,7 +13,7 @@
 <!--16 September 2004-->
 <version id="0.0.1.1" unixtime="1095292800" size="1023" active="false" critical="true" url="" notes="" signature=""></version>
 <version id="0.0.1.1" unixtime="1095292801" size="1023" active="true" critical="false" url="" notes="Active critical version \nInstall It \nAny String" signature=""></version>
-<version id="0.1.1.1" unixtime="1095292802" size="16600528" active="true" critical="false" url="https://github.com/qTox/qTox/releases/download/v1.16.3/setup-qtox-x86_64-release.exe" notes="" signature="fe2375b2bb80f91c041df08181cf66cc216c05e9e9564d6598ce2ef0f9e2052d367b8f89bc3b78b7bf21a85244e1ecfb77d616d49e6194ea107951a4dbf901fa" updateargs="/S"></version>
+<version id="0.1.1.1" unixtime="1095292802" size="29696808" active="true" critical="false" url="https://drive.google.com/uc?export=download&id=1OTLtOJxZh9En-uX1kfAwtkysijF4oZ-u" notes="" signature="c0ea0a80ad104d0ad2221893058d4c1e5545214294ed97696959986ed5b10fedc886e4d7f88e68a9a9b6e27e67d242eff6a999aa3610d10b69171b7574a61aad" updateargs=""></version>
 </channel>
 <channel type="beta"></channel>
 <channel type="test"></channel>

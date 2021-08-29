@@ -50,11 +50,12 @@ win32_build:
       - './before_script_win.ps1 "$APPUPDATERLIB_ARCHIVE" "$WIN32_LIB"'
     script:
       - './script_win.ps1 "$QT_BIN_DIR" "$BUILD_TOOL" "x86" "$PLATFORM"'
+      - 'makensis ./installer/insaller_cli.nsi'
     artifacts:
       name: appupdater_example_win
       paths:
         - ./build/Release/*
-        - ./qml_example/release/*
+        - ./installer/*.exe
       expire_in: 1 day
     tags:
       - win
@@ -68,11 +69,13 @@ win64_build:
       - './before_script_win.ps1 "$APPUPDATERLIB_ARCHIVE" "$WIN64_LIB"'
     script:
       - './script_win.ps1 "$QT_BIN_DIR" "$BUILD_TOOL" "x64" "$PLATFORM"'
+      - 'makensis /DUSE_64 ./installer/insaller_cli.nsi'
     artifacts:
       name: appupdater_example_win
       paths:
         - ./build/Release/*
         - ./qml_example/release/*
+        - ./installer/*.exe
       expire_in: 1 day
     tags:
       - win

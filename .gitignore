@@ -12,3 +12,4 @@ qml_example/release/moc_predefs.h
 qml_example/release/qmlcache_loader.cpp
 qml_example/debug/moc_predefs.h
 /.vs
+installer/*.exe

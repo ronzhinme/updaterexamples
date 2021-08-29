@@ -14,10 +14,18 @@ cmake -G "$BUILD_TOOL" -A $PLATFORM../
 cd ..
 cmake --build build --config Release
 
-echo "======== qml_example building... ========"
-cmd /C "$QDIR\qtenv2.bat & vcvarsall $ARCH & cd /d $PWD/qml_example & $QMAKE 'CONFIG+=release' & nmake"
+if( $ARCH -ne "x86" )
+{
+    echo "======== qml_example building... ========"
+    cmd /C "$QDIR\qtenv2.bat & vcvarsall $ARCH & cd /d $PWD/qml_example & $QMAKE 'CONFIG+=release' & nmake"
+}
 
-echo "======== prepare deploy... ========"
-cp ./3d-party/appupdater/lib_$ARCH/* ./release
-cp ./3d-party/appupdater/lib_$ARCH/* ./qml_example/release
-. $QTDEPLOY --qmldir ./qml_example ./qml_example/release
+echo "======== Copy libs... ========"
+Copy-Item -Path "./3d-party/appupdater/lib_$ARCH/*" -Destination "./build/release" -Recurse -Verbose
+
+if( $ARCH -ne "x86" )
+{
+    Copy-Item -Path "./3d-party/appupdater/lib_$ARCH/*" -Destination "./qml_example/release" -Recurse -Verbose
+    echo "======== prepare deploy... ========"
+    . $QTDEPLOY --qmldir ./qml_example ./qml_example/release
+}
