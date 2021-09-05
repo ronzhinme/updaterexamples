@@ -5,10 +5,10 @@ stages:
 
 variables:
   APPUPDATERLIB_ARCHIVE: appupdaterlib.zip
-  LINUX_LIB: https://drive.google.com/uc?export=download&id=1I-8FUazk26E7VOTHM07qUN4oktua2t1-
-  WIN32_LIB: https://drive.google.com/uc?export=download&id=1XBgdECrvat73-ChVAOspjmAXDRicWM3S
-  WIN64_LIB: https://drive.google.com/uc?export=download&id=1GW6vfpQmB9Ilhel-fcahGOSEsbugCqLX
-  MACOS_LIB: https://drive.google.com/uc?export=download&id=1sq3AIUGtltKBZYXfsW-c9Y4VAhN5Xl2y
+  LINUX_LIB: https://drive.google.com/uc?export=download&id=1BVjJrN9sNQ6GgLEDlDURlu8VdmLuNQdq
+  WIN32_LIB: https://drive.google.com/uc?export=download&id=1nYez1gbVQkiXwWVEuOFC2uyaAJ4H-o7Z
+  WIN64_LIB: https://drive.google.com/uc?export=download&id=11qPZVPD77H7Lrnw7aY2hPfoijAbyA6a6
+  MACOS_LIB: https://drive.google.com/uc?export=download&id=1XwJPJaZF27EJJud8yaC3ovp5FCc7FKbf
 
 linux_build:
     stage: build
