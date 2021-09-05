@@ -3,7 +3,7 @@
 #include "updaterwrapper.h"
 
 
-const QString baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/self-update-installers/");//"https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
+const QString baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
 #if _MSC_FULL_VER > 0
 const QString infoUrl(baseUrl + "appUpdateSample_Win.xml");
 #elif defined(__APPLE__)
