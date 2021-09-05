@@ -4,7 +4,7 @@
 
 #include <updaterInterface.h>
 
-const std::string baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/self-update-installers/");//"https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
+const std::string baseUrl("https://gitlab.com/desktopsoftwareupdater/updaterexamples/-/raw/master/");
 #if _MSC_FULL_VER > 0
 const std::string infoUrl(baseUrl + "appUpdateSample_Win.xml");
 #elif defined(__APPLE__)
