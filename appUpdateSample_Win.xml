@@ -13,7 +13,7 @@
 <!--16 September 2004-->
 <version id="0.0.1.1" unixtime="1095292800" size="1023" active="false" critical="true" url="" notes="" signature=""></version>
 <version id="0.0.1.1" unixtime="1095292801" size="1023" active="true" critical="false" url="" notes="Active critical version \nInstall It \nAny String" signature=""></version>
-<version id="0.1.1.1" unixtime="1095292802" size="29696808" active="true" critical="false" url="https://drive.google.com/uc?export=download&id=1OTLtOJxZh9En-uX1kfAwtkysijF4oZ-u" notes="" signature="c0ea0a80ad104d0ad2221893058d4c1e5545214294ed97696959986ed5b10fedc886e4d7f88e68a9a9b6e27e67d242eff6a999aa3610d10b69171b7574a61aad" updateargs=""></version>
+<version id="0.1.1.1" unixtime="1095292802" size="29696808" active="true" critical="false" url="https://drive.google.com/uc?export=download&id=1OTLtOJxZh9En-uX1kfAwtkysijF4oZ-u" notes="" signature="421ae64edc5ea3ce8ec80ca648cc4c49536ca675c7ebed400b0b91ce0d691c0dbef14535e9e743eb8531e4c131965f64339f02132681afe0b2893de6b7c5d3d1" updateargs=""></version>
 </channel>
 <channel type="beta"></channel>
 <channel type="test"></channel>
